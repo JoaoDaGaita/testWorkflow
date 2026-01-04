@@ -1,0 +1,42 @@
+name: C# Build Test PR
+
+on:
+  push:
+    branches:
+      - feature/**
+
+jobs:
+  build-test-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Baixar o código do repositório
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Instalar .NET
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # 3. Restaurar dependências
+      - name: Restore
+        run: dotnet restore
+
+      # 4. Build
+      - name: Build
+        run: dotnet build --no-restore
+
+      # 5. Testes
+      - name: Test
+        run: dotnet test --no-build
+
+      # 6. Criar Pull Request
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          title: "PR automático"
+          body: "Build e testes executados com sucesso"

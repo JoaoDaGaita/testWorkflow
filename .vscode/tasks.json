@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "silent",   // Will keep the build output from being shown unless there are errors
+                "focus": false,        // Doesn't focus the output terminal when the task is run
+                "panel": "shared"      // Will use a shared panel for all build outputs
+            },
+            "problemMatcher": "$msCompile"  // Matches compile errors to show them in the Problems panel
+        }
+    ]
+}
